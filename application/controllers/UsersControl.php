@@ -8,8 +8,18 @@ class UsersControl extends CI_Controller{
         $this->load->model("UserModel");
         $this->load->model("UsuariosModel");//Query Builder.
     }
-    public function index()
+    public function index($pag = 1)
     {
+        //IMPLEMENTACIÓN PAGINACIÓN
+        $pag--;
+        if($pag < 0)
+        {
+            $pag =0;
+        }
+        $page_size = 5;
+        $offset = $pag * $page_size;
+        //IMPLEMENTACIÓN PAGINACIÓN
+
         //Query NO Seguro
 		//$this->load->model("UserModel");
         //$users=$this->UserModel->getUser();
@@ -18,17 +28,26 @@ class UsersControl extends CI_Controller{
         //$this->load->view("UsersView", compact("users"));
 
         //Query Builder
-        $this->load->model("UsuariosModel");
-        $users = $this->UsuariosModel->getUsarios();
+        //$this->load->model("UsuariosModel");
+        //$users = $this->UsuariosModel->getUsarios();
         //print_r($users);
-        $this->load->view("Header");
-        $this->load->view("UsersView", compact('users'));
+        //$this->load->view("Header");
+        //$this->load->view("UsersView", compact('users'));
 
         //Query Builder MaxId
-        $this->load->model("UsuariosModel");
-        $No = $this->UsuariosModel->getMaxId();
+        //$this->load->model("UsuariosModel");
+        //$No = $this->UsuariosModel->getMaxId();
         //echo "ID MAYOR: ".$No[0]->id;     
         //print_r($No);
+        
+        //IMPLEMENTACIÓN PAGINACIÓN
+        //$users=$this->UserModel->getUser();
+        $vdata["users"] = $this->UsuariosModel->pagination($page_size, $offset);//Retorna registros por página de la tabla usuarios.
+        $vdata["current_page"] = $pag + 1;
+        $vdata["last_page"] = ceil($this->UsuariosModel->countUsers()/$page_size);
+        $this->load->view("Header");
+        $this->load->view("UsersView", $vdata);        
+        //IMPLEMENTACIÓN PAGINACIÓN
     }
 
     public function saveUser()

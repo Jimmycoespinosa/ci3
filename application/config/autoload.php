@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'session');//JE- Cambio para cargar controller default.
+$autoload['libraries'] = array('database', 'session', 'pagination');//JE- Cambio para cargar controller default.
 
 /*
 | -------------------------------------------------------------------

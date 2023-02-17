@@ -63,4 +63,16 @@ class UsuariosModel extends CI_Model
     {
         return $this->db->where('id', $id)->delete('users');
     }
+
+    public function countUsers()
+    {
+        $sql = $this->db->count_all_results('users');
+        return $sql;
+    }
+
+    public function pagination(int $page_size, int $offset)//Registros/Núm Pag.
+    {
+        $sql = $this->db->limit($page_size, $offset)->get("users")->result();
+        return $sql;
+    }
 }

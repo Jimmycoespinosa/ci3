@@ -76,6 +76,42 @@
                     }
                 ?>                
                 </table>
+                <!-- IMPLEMENTACIÓN PAGINACIÓN -->
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <?php
+                            $prev = $current_page-1;
+                            $next = $current_page+1;
+                            if($prev <= 0){
+                                $prev = 1;
+                            }
+                            if($next >= $last_page){
+                                $next = $last_page;
+                            }                            
+                        ?>
+                        <?php if($current_page <= 1){?>
+                            <li class="page-item disabled">
+                        <?php }?>
+                        <a class="page-link" href="<?php echo base_url().'index/'.$prev;?>" tabindex="-1">Previous</a>
+                        </li>
+                        <?php for($i=1; $i <= $last_page; $i++){?>
+                            <?php if($i == $current_page){?>
+                                <li class="page-item active">
+                                <a class="page-link" href="<?php echo base_url().'index/'.$i;?>"><?php echo $i;?><span class="sr-only">(current)</span></a>
+                            <?php }else{?>
+                                <li class="page-item"><a class="page-link" href="<?php echo base_url().'index/'.$i;?>"><?php echo $i;?></a></li>                            
+                            <?php }                           
+                        }?>
+                        </li>
+                        <?php if($current_page >= $last_page){?>
+                            <li class="page-item disabled">
+                        <?php }else{?>
+                            <li class="page-item">
+                        <?php }?>
+                        <a class="page-link" href="<?php echo base_url().'index/'.$next;?>">Next</a>
+                        </li>
+                    </ul>
+                </nav>
         <!-- </div>        
         </form> -->
     </div>
